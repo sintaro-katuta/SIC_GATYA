@@ -1,7 +1,10 @@
-{% extends 'logSignup.html' %}
+{% extends 'base.html' %}
 {% block content %}
-
 <form>
-    {% include register.html}
+    <div class="from_parts">
+        <input type="id" name="username" placeholder="UserName">
+        <input type="password" name="password" placeholder="Password">
+        <input type="submit" name="botton" value="LOGIN">
+    </div>
 </form>
 {% endblock %}
