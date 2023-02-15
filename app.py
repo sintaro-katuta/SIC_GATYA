@@ -26,6 +26,6 @@ def login():
 def register():
     return render_template("register.html")
 
-@app.route('logout')
+@app.route('/logout')
 def logout():
     return render_template("logout.html")
