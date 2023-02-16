@@ -44,7 +44,8 @@ def register():
     if request.method == "POST":
         username = request.form.get('user_name')
         password = request.form.get('password')
-        user = User(username = username , password = generate_password_hash(password , method= 'sha256'))
+        mail = request.form.get('mail')
+        user = User(username = username , password = generate_password_hash(password , method= 'sha256'),email = mail)
         db.session.add(user)
         db.session.commit()
         return redirect('/')
