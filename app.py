@@ -15,7 +15,7 @@ login_manager.init_app(app)
 
 class User(UserMixin,db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    username = db.Column(db.String(50), nullable=False)
+    username = db.Column(db.String(50), nullable=False , unique = True)
     password = db.Column(db.String(10), nullable=False)
     email = db.Column(db.String(50), nullable=False)
 
@@ -27,11 +27,12 @@ def index():
 @app.route('/login',methods = ['GET','POST'])
 def login():
     if request.method == "POST":
-        username = request.form.get('username')
+        username = request.form.get('user_name')
         password = request.form.get('password')
+        print(password)
 
         #取得したusernameとuserテーブルのusernameと一致するユーザを取得
-        user = User.query.filterby(username = username).first()
+        user = User.query.filter_by(username = username).first()
         if check_password_hash(user.password,password):
             login_user(user)
         return redirect('/')
