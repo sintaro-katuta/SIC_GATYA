@@ -1,0 +1,17 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@700&display=swap');
+
+.bg-main{
+  background-color: #FD813C;
+}
+
+.bg-dark{
+  background-color: #333;
+}
+
+.bg-accent{
+  background-color: #0E7BF0;
+}
+
+.theme-font{
+  font-family: 'Noto Sans JP', sans-serif;
+}
