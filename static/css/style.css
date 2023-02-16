@@ -19,3 +19,10 @@
 .card{
   border-radius: 30%;
 }
+
+/* 
+@media screen and (max-width: 999px) {
+ .form{
+  width: 700px;
+ } 
+} */
