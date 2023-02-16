@@ -13,7 +13,7 @@ db = SQLAlchemy(app)
 login_manager = LoginManager()
 login_manager.init_app(app)
 
-class User(db.Model):
+class User(UserMixin,db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(50), nullable=False)
     password = db.Column(db.String(10), nullable=False)
@@ -54,3 +54,7 @@ def register():
 @app.route('/logout')
 def logout():
     return render_template("logout.html")
+
+@login_manager.user_loader
+def load_user(id):
+    return User.query.get(int(id))
