@@ -7,7 +7,7 @@ from werkzeug.security import generate_password_hash , check_password_hash
 
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///blog.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///user.db'
 db = SQLAlchemy(app)
 
 login_manager = LoginManager()
