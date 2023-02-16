@@ -1,3 +1,23 @@
 {% extends 'base.html' %}
 {% block content %}
+<div class="card w-25 mt-5 mx-auto">
+    <div class="card-header bg-dark text-white theme-font">
+      ログイン
+    </div>
+    <div class="card-body bg-main">
+        <form method="post">
+            <div class="m-3">
+                <label for="user_name" class="theme-font">ユーザー名</label>
+                <input type="id" name="user_name" class="form-control">
+            </div>
+            <div class="m-3">
+                <label for="password" class="theme-font">パスワード</label>
+                <input type="password" name="password" class="form-control">
+            </div>
+            <div class="text-center">
+                <input type="submit" class="btn btn-primary mt-3 m-auto theme-font" value="ログイン">
+            </div>
+        </form>
+    </div>
+  </div>
 {% endblock %}
