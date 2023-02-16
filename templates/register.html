@@ -1,10 +1,27 @@
 {% extends 'base.html' %}
 {% block content %}
-<form method="post">
-    <div class="from_parts">
-        <input type="id" name="user_name" placeholder="UserName">
-        <input type="password" name="password" placeholder="Password">
-        <input type="submit" name="botton" value="LOGIN">
+<div class="card w-25 mt-5 mx-auto">
+    <div class="card-header bg-dark text-white theme-font">
+      新規登録
     </div>
-</form>
+    <div class="card-body bg-main">
+        <form method="post">
+            <div class="m-3">
+                <label for="user_name" class="theme-font">ユーザー名</label>
+                <input type="id" name="user_name" class="form-control">
+            </div>
+            <div class="m-3">
+                <label for="mail" class="theme-font">メールアドレス</label>
+                <input type="mail" class="form-control">
+            </div>
+            <div class="m-3">
+                <label for="password" class="theme-font">パスワード</label>
+                <input type="password" name="password" class="form-control">
+            </div>
+            <div class="text-center">
+                <input type="submit" class="btn btn-primary mt-3 m-auto theme-font" value="登録">
+            </div>
+        </form>
+    </div>
+  </div>
 {% endblock %}
