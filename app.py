@@ -24,7 +24,7 @@ def index():
     return render_template("index.html")
 
 #Userログイン
-@app.route('/login',method = ['GET','POST'])
+@app.route('/login',methods = ['GET','POST'])
 def login():
     if request.method == "POST":
         username = request.form.get('username')
@@ -39,7 +39,7 @@ def login():
         return render_template("login.html")
 
 #User新規登録
-@app.route('/register',method=['GET','POST'])
+@app.route('/register',methods=['GET','POST'])
 def register():
     if request.method == "POST":
         username = request.form.get('user_name')
