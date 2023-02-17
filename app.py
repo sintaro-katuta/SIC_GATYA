@@ -4,14 +4,18 @@ from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 from flask_login import UserMixin, LoginManager , login_user , logout_user , login_required
 from werkzeug.security import generate_password_hash , check_password_hash
-
+import secrets
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///user.db'
 db = SQLAlchemy(app)
+#秘密鍵設定
+secret = secrets.token_urlsafe(32)
+app.secret_key = secret
 
 login_manager = LoginManager()
 login_manager.init_app(app)
+
 
 class User(UserMixin,db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
@@ -35,7 +39,7 @@ def login():
         user = User.query.filter_by(username = username).first()
         if check_password_hash(user.password,password):
             login_user(user)
-        return redirect('/')
+        return render_template('index.html', username = username)
     else:
         return render_template("login.html")
 
