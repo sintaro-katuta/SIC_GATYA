@@ -2,7 +2,7 @@ from flask import Flask
 from flask import render_template, request, redirect
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
-from flask_login import UserMixin, LoginManager , login_user , logout_user , login_required
+from flask_login import UserMixin, LoginManager , login_user , logout_user , current_user
 from werkzeug.security import generate_password_hash , check_password_hash
 import secrets
 
@@ -62,10 +62,13 @@ def register():
         return render_template("register.html")
     
 @app.route('/logout')
-@login_required
 def logout():
-    logout_user()
-    return redirect("/")
+    if current_user.is_authenticated:
+        logout_user()
+        return redirect("/")
+    else:
+        return redirect("/")
+
 
 @login_manager.user_loader
 def load_user(id):
