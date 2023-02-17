@@ -53,13 +53,16 @@ def register():
         user = User(username = username , password = generate_password_hash(password , method= 'sha256') , email = email)
         db.session.add(user)
         db.session.commit()
-        return redirect('/')
+        login_user(user)
+        return render_template('/index.html',username = username)
     else:
         return render_template("register.html")
     
 @app.route('/logout')
+@login_required
 def logout():
-    return render_template("logout.html")
+    logout_user()
+    return redirect("/")
 
 @login_manager.user_loader
 def load_user(id):
