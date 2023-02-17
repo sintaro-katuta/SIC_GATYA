@@ -37,9 +37,12 @@ def login():
 
         #取得したusernameとuserテーブルのusernameと一致するユーザを取得
         user = User.query.filter_by(username = username).first()
-        if check_password_hash(user.password,password):
-            login_user(user)
-        return render_template('index.html', username = username)
+        if user:
+            if check_password_hash(user.password,password):
+                login_user(user)
+            return render_template('index.html', username = username)
+        else:
+            return render_template("login.html", error = "ログイン出来ませんでした")
     else:
         return render_template("login.html")
 
