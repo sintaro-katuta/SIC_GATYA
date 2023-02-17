@@ -22,11 +22,17 @@
             </ul>
             <div>
               {% if username %}
-              <div>{{username}}さん</div>
-              <div>
-                <a href="/logout">ログアウト</a>
-              </div>
-              {% else  %}
+              <div class="d-flex">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                      <div class="nav-link me-2 text-reset text-decoration-none">{{username}}さん</div>
+                    </li>
+                    <li class="nav-item text-danger">
+                      <a href="/logout"class="nav-link me-2 text-reset text-decoration-none">ログアウト</a><i class="bi bi-box-arrow-right"></i>
+                    </li>
+                </ul>
+            </div>
+              {% else %}
               <div>ゲストさん</div>
             </div>
             <div class="d-flex">
