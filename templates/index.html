@@ -2,7 +2,9 @@
 {% block content %}
 <div class="gatya row">
     <div class="col">
-    <img src="/static/img/gachagacha.png" class="w-75 h-auto m-3" id="gachaEmote">
+    <div class="arrow-left" onclick="previousImage()"></div>
+    <img src="/static/img/gachagacha.png" class="w-75 h-auto m-3 mr-30" id="gachaEmote">
+    <div class="arrow-right" onclick="nextImage()"></div>
     </div>
     <div class="setting col">
         <div class="row">
@@ -30,4 +32,5 @@
     </div>
 </div>
 <script src="static/js/gacha.js"></script>
+
 {% endblock %}
