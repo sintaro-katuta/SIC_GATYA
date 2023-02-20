@@ -108,7 +108,10 @@ function add_gatya(){
 
 function remove_element(element) {
     element.parentElement.parentElement.remove();
+    probability_total = document.querySelector('.probability-total');
+    probability_total.innerHTML = "(合計:" + total_probability() + "%)";
     show_gatya_number();
+    
 }
 
 function all_remove() {
