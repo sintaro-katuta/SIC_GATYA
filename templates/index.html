@@ -2,26 +2,23 @@
 {% block content %}
 <div class="gatya row">
     <div class="col">
-    <div class="arrow-left" onclick="previousImage()"></div>
-    <img src="/static/img/gachagacha.png" class="w-75 h-auto m-3 mr-30" id="gachaEmote">
-    <div class="arrow-right" onclick="nextImage()"></div>
+     <!-- <img src="/static/img/gachagacha.png" class="w-75 h-auto m-3" id="gachaEmote"> -->
+     <canvas id="canvas" width="400" height="500" class="my-5 border border-dark bg-accent"></canvas>
     </div>
     <div class="setting col">
-        <div class="row">
-            <input type="submit" class="btn bg-dark text-white col m-2" value="ガチャに追加する" onclick="add_gatya()">
-            <input type="submit" class="btn bg-danger text-white col m-2" value="すべて削除する" onclick="all_remove()">
-        </div>
-        <form method="post" name="gatya-form" id="gatya-form" class="theme-font">
-            <div class="input-group mb-3 pt-3">
+        <form method="post" name="gatya-form" id="gatya-form">
+            <label for="gatya-content" class="form-label">ガチャの中身</label>
+            <div class="input-group mb-3">
                 <input type="text" name="gatya-content" id="gatya-content" class="form-control">
-                <input type="submit" id="submit-btn" class="btn bg-dark text-white" value="カプセルを追加">
+                <input type="submit" id="submit-btn" class="btn bg-dark text-white" value="追加">
             </div>
             <div class="row">
                 <table class="table col">
                     <thead>
-                        <th>#</th>
-                        <th scope="col">名前</th>
-                        <th scope="col">確率<span class="probability-total"></span></th>
+                        <th>名前</th>
+                        <th>確率</th>
+                        <th></th>
+                        <th></th>
                     </thead>
                     <tbody id="gatya-table">
 
@@ -32,5 +29,4 @@
     </div>
 </div>
 <script src="static/js/gacha.js"></script>
-
 {% endblock %}
