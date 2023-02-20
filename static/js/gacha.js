@@ -5,6 +5,7 @@ const gatya_tabel = document.querySelector('#gatya-table');
 const remove = document.querySelectorAll('.remove');
 const probability = Array.from(document.querySelectorAll(".probability"));
 
+
 gatya_form.addEventListener('submit', (element) =>{
     element.stopPropagation();
     element.preventDefault();
@@ -80,3 +81,66 @@ function remove_element(element) {
 function show_probability(element) {
     element.parentElement.nextElementSibling.innerHTML = element.value + "%";
 }
+
+//canvas
+const canvas = document.getElementById("canvas");
+const ctx = canvas.getContext('2d');
+
+ctx.fillRect(100,250,150,50);
+var degree = 0;
+
+function spin(){
+    for(let i=0;i<5;i++){
+        window.setTimeout(function() {
+            ctx.clearRect(0,0,canvas.width,canvas.height);
+            //ctx.save();
+                ctx.beginPath();
+            // ctx.translate(canvas.width/2,canvas.height/2);
+                ctx.translate(canvas.width/2.35,canvas.height/1.45);
+                //ctx.rotate(Math.PI /180);
+                ctx.rotate(45*Math.PI /360);
+                ctx.translate(-canvas.width/2.35, -canvas.height/1.45);
+                ctx.fillRect(100,250,150,50);   
+
+        },10);
+        
+    }
+
+    ctx.restore();
+
+//    requestAnimationFrame(spin)
+ 
+};
+canvas.addEventListener('click',(e)=>{
+
+    spin();
+});
+
+//canvas
+// const canvas = document.getElementById("canvas");
+// const ctx = canvas.getContext('2d');
+
+// ctx.fillRect(100,250,150,50);
+// var degree = 0;
+
+// function spin(){
+// setInterval( function(){
+//     ctx.save();
+
+//     ctx.beginPath();
+//     ctx.clearRect(0,0,canvas.width,canvas.height);
+
+//     // ctx.translate(canvas.width/2,canvas.height/2);
+//     ctx.translate(canvas.width/2.35,canvas.height/1.45);
+//     ctx.rotate(++degree * Math.PI /180);
+//     ctx.translate(-canvas.width/2.35, -canvas.height/1.45);
+
+//     ctx.fillRect(100,250,150,50);
+
+//     ctx.restore();
+ 
+// },25);
+// }
+// canvas.addEventListener('click',(e)=>{
+//     spin();
+// });
