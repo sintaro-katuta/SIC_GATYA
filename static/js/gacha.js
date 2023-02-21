@@ -4,9 +4,18 @@ const gatya_content = document.querySelector('#gatya-content');
 const gatya_tabel = document.querySelector('#gatya-table');
 const remove = document.querySelectorAll('.remove');
 const probability = Array.from(document.querySelectorAll(".probability"));
+
+//いろ　赤　黄色　マゼンタ　青　
+const randColor = ['FF0000','FFFF00','FF00FF','0000FF','2E8B57'];
+//ガチャカプセル色ランダム
+var ResultColor = Math.floor(Math.random()*randColor.length);
+var InsideColor = Math.floor(Math.random()*randColor.length);
+console.log(randColor[ResultColor])
+
 let probability_total = document.querySelector('.probability-total');
 let click_count = 0;
 let gatya_number = 1;
+
 
 
 gatya_form.addEventListener('submit', (element) => {
@@ -25,7 +34,9 @@ gatya_form.addEventListener('submit', (element) => {
     new_th.scope = "row";
     new_th.innerHTML = gatya_number;
 
+    //ガチャの数
     gatya_number++;
+
 
     new_text.innerHTML = gatya_content.value;
     new_text.className = 'gatya-name m-0 text-center';
@@ -102,6 +113,8 @@ ctx.fillStyle = "#fff";
 ctx.fill();
 ctx.stroke();
 
+//InsideCapsule();
+
 // 下部のカプセルの出口を描画
 createRoundRect(ctx, 280, 350, 100, 100, 20);
 ctx.fillStyle = "#333";
@@ -143,16 +156,23 @@ function spin() {
         ctx.fill();
         ctx.stroke();
 
+        //ガチャ中身
+        //InsideCapsule();
+
         // 下部のカプセルの出口を描画
         createRoundRect(ctx, 280, 350, 100, 100, 20);
         ctx.fillStyle = "#333";
         ctx.fill();
         ctx.stroke();
 
+        if(click_count == 2){
+            window.setTimeout(ResulltCapsule,500)
+            //ResulltCapsule();
+        }
+
     }, 500);
     ctx.restore();
 };
-
 canvas.addEventListener('click', (e) => {
     // マウスの座標をCanvas内の座標とあわせるため
     const rect = canvas.getBoundingClientRect();
@@ -180,6 +200,7 @@ canvas.addEventListener('click', (e) => {
         }
         click_count++;// クリックしたカウント
     }
+
 });
 
 function show_probability(element) {
@@ -207,34 +228,10 @@ function add_gatya() {
         alert("確率が100%以下です。");
     } else {
         const gatya_name = Array.from(document.querySelectorAll('.gatya-name'));
-        const probability = Array.from(document.querySelectorAll(".probability"));
-        var patterns = []
+        console.log(total_probability());
         gatya_name.forEach((gn, index) => {
-            patterns.push({ name: gn.innerHTML, value: probability[index].value / 100 })
-        });
-        console.log(patterns)
-        function drawGacha() {
-            //0~1のランダムの数値
-            const random = Math.random()
-            let num = 0;
-            for (let i = 0; i < patterns.length; i++) {
-                num += patterns[i].value;
-                if (random < num) {
-                    return patterns[i];
-                }
-            }
-        }
-        function renzoku() {
-            const results = [];
-            //ここのiを変えると何連か決めれる
-            for (let i = 0; i < 10; i++) {
-                results.push(drawGacha());
-            }
-            return results;
-        }
 
-        const gachaResults = renzoku();
-        console.log(gachaResults);
+        });
     }
 }
 
@@ -275,3 +272,47 @@ function createRoundRect(context, x, y, width, height, radius) {
     ctx.arcTo(x, y, x + radius, y, radius);
     ctx.closePath();
 }
+
+//結果用カプセル
+function ResulltCapsule() {
+    //カプセル描画
+    ctx.beginPath();
+    ctx.arc(330, 400, 40, 0 * Math.PI / 180, 360 * Math.PI / 180, false);
+    ctx.fillStyle = "#"+ randColor[ResultColor];
+    ctx.fill();
+    ctx.stroke();
+
+    ctx.beginPath();
+    ctx.arc(330, 400, 40, 0 * Math.PI / 180, 180 * Math.PI / 180, false);
+    ctx.fillStyle = "white";
+    ctx.fill();
+    ctx.stroke();
+
+}
+
+// //ガチャ中身用カプセル
+// function InsideCapsule(){
+//     var RandWidth = Math.floor(Math.random()*230)+30;
+//     var RandHeight = Math.floor(Math.random()*180)+30;
+//      //カプセル描画
+//      ctx.beginPath();
+//      ctx.arc(RandWidth, RandHeight, 40, 0 * Math.PI / 180, 360 * Math.PI / 180, false);
+//      ctx.fillStyle = "#"+ randColor[InsideColor];
+//      ctx.fill();
+//      ctx.stroke();
+ 
+//      ctx.beginPath();
+//      ctx.arc(RandWidth, RandHeight, 40, 0 * Math.PI / 180, 180 * Math.PI / 180, false);
+//      ctx.fillStyle = "white";
+//      ctx.fill();
+//      ctx.stroke();
+// }
+// function gatyaInside(){
+//     if(gatya_number){
+//         for(i = 0; i < gatya_number.length ; i++){
+//             InsideCapsule(gatya_number.length);
+//         }
+//     }
+// }
+
+
