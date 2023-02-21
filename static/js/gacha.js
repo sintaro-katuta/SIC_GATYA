@@ -209,7 +209,7 @@ function add_gatya(){
         const gatya_name = Array.from(document.querySelectorAll('.gatya-name'));
         console.log(total_probability());
         gatya_name.forEach((gn,index) => {
-
+    
         });
     }
 }
