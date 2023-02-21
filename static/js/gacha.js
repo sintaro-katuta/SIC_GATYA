@@ -9,7 +9,7 @@ let click_count = 0;
 let gatya_number = 1;
 
 
-gatya_form.addEventListener('submit', (element) =>{
+gatya_form.addEventListener('submit', (element) => {
     element.stopPropagation();
     element.preventDefault();
     const new_tr = document.createElement('tr');
@@ -40,7 +40,7 @@ gatya_form.addEventListener('submit', (element) =>{
     new_input.max = 100;
     new_input.step = 1;
     new_input.value = 50;
-    new_input.setAttribute('oninput','show_probability(this);');
+    new_input.setAttribute('oninput', 'show_probability(this);');
     new_input.className = 'probability p-0 mx-2';
 
     new_probability.className = 'probability_text w-auto';
@@ -59,7 +59,7 @@ gatya_form.addEventListener('submit', (element) =>{
     const probability = Array.from(document.querySelectorAll(".probability"));
     const probability_text = Array.from(document.querySelectorAll(".probability_text"));
 
-    probability_text.forEach((pt,index) => {
+    probability_text.forEach((pt, index) => {
         pt.innerHTML = probability[index].value + "%";
     });
 
@@ -69,9 +69,9 @@ gatya_form.addEventListener('submit', (element) =>{
 
 });
 
-probability.forEach((p,index) =>{
+probability.forEach((p, index) => {
     console.log(p)
-    p.addEventListener('change',element => {
+    p.addEventListener('change', element => {
         element[index].innerHTML = p.value + "%";
     })
 });
@@ -84,14 +84,14 @@ const ctx = canvas.getContext('2d');
 
 // 回す所の円を描画
 ctx.beginPath();
-ctx.arc( 150, 300, 80, 0 * Math.PI / 180, 360 * Math.PI / 180, false );
+ctx.arc(150, 300, 80, 0 * Math.PI / 180, 360 * Math.PI / 180, false);
 ctx.fillStyle = "#c9caca";
 ctx.fill();
 ctx.stroke();
 
 // 円の中の棒を描画
 ctx.beginPath();
-ctx.rect(70, 290, 160, 20 );
+ctx.rect(70, 290, 160, 20);
 ctx.fillStyle = "#fff";
 ctx.fill();
 ctx.stroke();
@@ -109,73 +109,73 @@ ctx.fill();
 ctx.stroke();
 
 
-let degree = [15,30,45,60,75,90,105,120,135,150,165,180,195,210,225,240,255,270,285,300,315,330,345,360];// 角度の配列
+let degree = [15, 30, 45, 60, 75, 90, 105, 120, 135, 150, 165, 180, 195, 210, 225, 240, 255, 270, 285, 300, 315, 330, 345, 360];// 角度の配列
 
-function spin(){
-    window.setTimeout(function() {
-        ctx.clearRect(0,0,canvas.width,canvas.height);
+function spin() {
+    window.setTimeout(function () {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
 
         // 中央からランダムに回転
         ctx.beginPath();
-        ctx.translate(150,300);// ctx.translate(x,y) は ctx.arc(x,y)と同じ値
-        ctx.rotate(degree[Math.floor(Math.random()*degree.length)]*Math.PI / 360);
-        ctx.translate(-150,-300);
+        ctx.translate(150, 300);// ctx.translate(x,y) は ctx.arc(x,y)と同じ値
+        ctx.rotate(degree[Math.floor(Math.random() * degree.length)] * Math.PI / 360);
+        ctx.translate(-150, -300);
 
         // 回す所の円を描画
-        ctx.arc( 150, 300, 80, 0 * Math.PI / 180, 360 * Math.PI / 180, false );
+        ctx.arc(150, 300, 80, 0 * Math.PI / 180, 360 * Math.PI / 180, false);
         ctx.fillStyle = "#c9caca";
         ctx.fill();
         ctx.stroke();
 
         // 円の中の棒を描画
         ctx.beginPath();
-        ctx.rect(70, 290, 160, 20 );
+        ctx.rect(70, 290, 160, 20);
         ctx.fillStyle = "#fff";
         ctx.fill();
         ctx.stroke();
 
         // 位置と回転をリセット
-        ctx.setTransform(1,0,0,1,0,0);
+        ctx.setTransform(1, 0, 0, 1, 0, 0);
 
         // 上部のカプセルの枠を描画
         createRoundRect(ctx, 30, 30, 350, 150, 20);
         ctx.fillStyle = "#fff";
         ctx.fill();
         ctx.stroke();
-        
+
         // 下部のカプセルの出口を描画
         createRoundRect(ctx, 280, 350, 100, 100, 20);
         ctx.fillStyle = "#333";
         ctx.fill();
         ctx.stroke();
 
-    },500);
+    }, 500);
     ctx.restore();
 };
 
-canvas.addEventListener('click',(e)=>{
+canvas.addEventListener('click', (e) => {
     // マウスの座標をCanvas内の座標とあわせるため
     const rect = canvas.getBoundingClientRect();
     const point = {
-        x:e.clientX - rect.left,
-        y:e.clientY - rect.top
+        x: e.clientX - rect.left,
+        y: e.clientY - rect.top
     };
     //クリック判定処理
     const square = {
-        x:150,y:300,
-        r:80
+        x: 150, y: 300,
+        r: 80
     };
 
     const hit =
         Math.pow(square.x - point.x, 2) + Math.pow(square.y - point.y, 2) <= Math.pow(square.r, 2);
 
-    if (hit){
+    if (hit) {
         // 二回クリックしたら画面遷移
-        if(click_count < 2){
-            for(let i=0;i<50;i++){
+        if (click_count < 2) {
+            for (let i = 0; i < 50; i++) {
                 spin();
             }
-        }else{
+        } else {
             //alert("!!!!");
         }
         click_count++;// クリックしたカウント
@@ -189,28 +189,52 @@ function show_probability(element) {
 
 function show_gatya_number() {
     const gatya_number = Array.from(document.querySelectorAll('.gatya-number'));
-    gatya_number.forEach((gn,index) => {
-        gn.innerHTML = index+1;
+    gatya_number.forEach((gn, index) => {
+        gn.innerHTML = index + 1;
     })
 }
 
 function total_probability() {
     const probability = Array.from(document.querySelectorAll('.probability'));
-    let total = probability.reduce((sum,i) => sum + parseInt(i.value),0);
+    let total = probability.reduce((sum, i) => sum + parseInt(i.value), 0);
     return total;
 }
 
-function add_gatya(){
-    if(total_probability() > 100){
+function add_gatya() {
+    if (total_probability() > 100) {
         alert("確率が100%以上です。");
-    }else if(total_probability() < 100){
+    } else if (total_probability() < 100) {
         alert("確率が100%以下です。");
-    }else{
+    } else {
         const gatya_name = Array.from(document.querySelectorAll('.gatya-name'));
-        console.log(total_probability());
-        gatya_name.forEach((gn,index) => {
-    
+        const probability = Array.from(document.querySelectorAll(".probability"));
+        var patterns = []
+        gatya_name.forEach((gn, index) => {
+            patterns.push({ name: gn.innerHTML, value: probability[index].value / 100 })
         });
+        console.log(patterns)
+        function drawGacha() {
+            //0~1のランダムの数値
+            const random = Math.random()
+            let num = 0;
+            for (let i = 0; i < patterns.length; i++) {
+                num += patterns[i].value;
+                if (random < num) {
+                    return patterns[i];
+                }
+            }
+        }
+        function renzoku() {
+            const results = [];
+            //ここのiを変えると何連か決めれる
+            for (let i = 0; i < 10; i++) {
+                results.push(drawGacha());
+            }
+            return results;
+        }
+
+        const gachaResults = renzoku();
+        console.log(gachaResults);
     }
 }
 
@@ -223,12 +247,12 @@ function all_remove() {
     count = 1;
     const table_body = document.querySelector("#gatya-table");
     probability_total.innerHTML = "";
-    while(table_body.firstChild){
+    while (table_body.firstChild) {
         table_body.removeChild(table_body.firstChild);
     }
 }
 
-function createRoundRect(context, x, y, width, height, radius){
+function createRoundRect(context, x, y, width, height, radius) {
     ctx.beginPath();
     // 左上移動
     ctx.moveTo(x + radius, y);
@@ -239,10 +263,10 @@ function createRoundRect(context, x, y, width, height, radius){
     // 右下に繋がる線
     ctx.lineTo(x + width, y + height - radius);
     // 弧
-    ctx.arcTo(x + width, y + height, x + width - radius 
+    ctx.arcTo(x + width, y + height, x + width - radius
         , y + height, radius);
     // 左下に繋がる線
-    ctx.lineTo(x + radius, y + height); 
+    ctx.lineTo(x + radius, y + height);
     // 弧
     ctx.arcTo(x, y + height, x, y + height - radius, radius);
     // 右上に繋がる線
