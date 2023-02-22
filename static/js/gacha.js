@@ -4,6 +4,7 @@ const gatya_content = document.querySelector('#gatya-content');
 const gatya_tabel = document.querySelector('#gatya-table');
 const remove = document.querySelectorAll('.remove');
 const probability = Array.from(document.querySelectorAll(".probability"));
+const button = document.querySelector('.btn-primary')
 
 //いろ　赤　黄色　マゼンタ　青　
 const randColor = ['FF0000','FFFF00','FF00FF','0000FF','2E8B57'];
@@ -169,8 +170,8 @@ function spin() {
         if(click_count == 2){
             window.setTimeout(ResulltCapsule,500)
             //ResulltCapsule();
-            //連続で回して中身を変えられるのを防ぐ
-            show_gatya_result()
+            setPatterns()
+            
         }
 
     }, 500);
@@ -193,23 +194,23 @@ canvas.addEventListener('click', (e) => {
         Math.pow(square.x - point.x, 2) + Math.pow(square.y - point.y, 2) <= Math.pow(square.r, 2);
 
     if (hit) {
-        // 二回クリックしたら画面遷移
-        if (click_count < 2) {
-            for (let i = 0; i < 50; i++) {
-                spin();
+        if(total_probability() == 100){
+            // 二回クリックしたら画面遷移
+            if (click_count < 2) {
+                for (let i = 0; i < 50; i++) {
+                    spin();
+                }
             }
-        } else {
-
+            click_count++;// クリックしたカウント
+        }else{
+            add_gatya()
         }
-        click_count++;// クリックしたカウント
     }
 
 });
 
-function show_gatya_result(){
+function setPatterns(){
     if (flag == 0) {
-        const button = document.querySelector('.btn-primary')
-        button.disabled = false //ボタン有効化
         const gatya_name = Array.from(document.querySelectorAll('.gatya-name'));
         const probability = Array.from(document.querySelectorAll(".probability"));
         var patterns = []
@@ -217,6 +218,7 @@ function show_gatya_result(){
             patterns.push({ index: index, name: gn.innerHTML, value: probability[index].value / 100 })
         });
         console.log(patterns)
+        console.log(patterns.length)
         function drawGacha() {
             //0~1のランダムの数値
             const random = Math.random()
@@ -238,17 +240,18 @@ function show_gatya_result(){
         }
         const gachaResults = renzoku();
         console.log(gachaResults);
-
-        const text = document.querySelector(".text")
-        for (let i = 0; i < gachaResults.length; i++) {
-            const li = document.createElement("li");
-            li.innerHTML = gachaResults[i];
-            li.style.fontSize = '30px';
-            // li.style.margin = "10px"
-            text.appendChild(li);
-        }
-        flag = 1
+        
+    const text = document.querySelector(".text")
+    for (let i = 0; i < gachaResults.length; i++) {
+        const li = document.createElement("li");
+        li.innerHTML = gachaResults[i];
+        li.style.fontSize = '30px';
+        // li.style.margin = "10px"
+        text.appendChild(li);
     }
+    flag = 1
+    }
+    button.disabled = false //ボタン有効化
 }
 
 function show_probability(element) {
