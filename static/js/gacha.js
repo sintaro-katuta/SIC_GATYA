@@ -5,6 +5,7 @@ const gatya_tabel = document.querySelector('#gatya-table');
 const remove = document.querySelectorAll('.remove');
 const probability = Array.from(document.querySelectorAll(".probability"));
 const button = document.querySelector('.btn-primary')
+let gachaResults = [];
 
 //いろ　赤　黄色　マゼンタ　青　
 const randColor = ['FF0000','FFFF00','FF00FF','0000FF','2E8B57'];
@@ -228,9 +229,17 @@ function setPatterns(){
         }
         return results;
     }
-    const gachaResults = renzoku();
-    console.log(gachaResults);
-    
+    if(gachaResults[0] == null){
+        gachaResults.push(renzoku())
+        console.log(gachaResults);
+        button.disabled = false //ボタン有効化
+    }else{
+        gachaResults = []
+        gachaResults.push(renzoku())
+        console.log(gachaResults);
+    }
+}
+function show_gacha(){
     const text = document.querySelector(".text")
     for (let i = 0; i < gachaResults.length; i++) {
         const li = document.createElement("li");
@@ -238,8 +247,6 @@ function setPatterns(){
         li.style.fontSize = '30px';
         text.appendChild(li);
     }
-    button.disabled = false //ボタン有効化
-
 }
 
 function show_probability(element) {
