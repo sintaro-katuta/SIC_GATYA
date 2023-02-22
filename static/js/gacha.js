@@ -4,7 +4,9 @@ const gatya_content = document.querySelector('#gatya-content');
 const gatya_tabel = document.querySelector('#gatya-table');
 const remove = document.querySelectorAll('.remove');
 const probability = Array.from(document.querySelectorAll(".probability"));
-
+const circles= [];
+const WIDTH=500;
+const HEIGHT =500;
 //いろ　赤　黄色　マゼンタ　青　
 const randColor = ['FF0000','FFFF00','FF00FF','0000FF','2E8B57'];
 //ガチャカプセル色ランダム
@@ -16,6 +18,7 @@ let probability_total = document.querySelector('.probability-total');
 let click_count = 0;
 let gatya_number = 1;
 let flag = 0;
+
 
 
 
@@ -167,10 +170,12 @@ function spin() {
         ctx.stroke();
 
         if(click_count == 2){
-            window.setTimeout(ResulltCapsule,500)
+            window.setTimeout(ResulltCapsule,500);
             //ResulltCapsule();
             //連続で回して中身を変えられるのを防ぐ
-            show_gatya_result()
+            show_gatya_result();
+            window.requestAnimationFrame((ts) => ResulltCapsule(ts));
+
         }
 
     }, 500);
@@ -318,17 +323,26 @@ function createRoundRect(context, x, y, width, height, radius) {
 //結果用カプセル
 function ResulltCapsule() {
     //カプセル描画
+    circles.push({ x: 330, y: 400, radius: 500});
+
+       //ﾎﾞｰﾙ
+       for(const c of circles){
+        if(c.radius<4000){c.radius +=15;}
+        // else{c.radius =300;}
+    }
+    for(const c of circles){
     ctx.beginPath();
-    ctx.arc(330, 400, 40, 0 * Math.PI / 180, 360 * Math.PI / 180, false);
+    ctx.arc(c.x, c.y, c.radius * Math.PI / 180, 360 * Math.PI / 180, false);
     ctx.fillStyle = "#"+ randColor[ResultColor];
     ctx.fill();
-    ctx.stroke();
-
+    }
+    for(const c of circles){
     ctx.beginPath();
-    ctx.arc(330, 400, 40, 0 * Math.PI / 180, 180 * Math.PI / 180, false);
+    ctx.arc(c.x, c.y, c.radius * Math.PI / 180, 180 * Math.PI / 180, false);
     ctx.fillStyle = "white";
     ctx.fill();
-    ctx.stroke();
+    }
+    window.requestAnimationFrame((ts) => ResulltCapsule(ts))
 
 }
 
