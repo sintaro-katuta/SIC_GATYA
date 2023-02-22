@@ -6,13 +6,12 @@
     </div>
     <div class="setting col">
         <div class="row">
-            <input type="submit" class="btn bg-dark text-white col m-2" value="ガチャに追加する" onclick="add_gatya()">
-            <input type="submit" class="btn bg-danger text-white col m-2" value="すべて削除する" onclick="all_remove()">
+            <input type="submit" class="btn btn-danger btn-rounded m-2" value="すべて削除する" onclick="all_remove()">
         </div>
         <form method="post" name="gatya-form" id="gatya-form">
             <div class="input-group mb-3 pt-3">
-                <input type="text" name="gatya-content" id="gatya-content" class="form-control">
-                <input type="submit" id="submit-btn" class="btn bg-dark text-white" value="カプセルを追加">
+                <input type="text" name="gatya-content" id="gatya-content" class="form-control" required>
+                <input type="submit" id="submit-btn" class="btn btn-dark btn-rounded" value="カプセルを追加">
             </div>
             <div class="row">
                 <table class="table col">
