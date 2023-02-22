@@ -10,11 +10,10 @@ const button = document.querySelector('.btn-primary')
 const randColor = ['FF0000','FFFF00','FF00FF','0000FF','2E8B57'];
 //ガチャカプセル色ランダム
 var ResultColor = Math.floor(Math.random()*randColor.length);
-var InsideColor = Math.floor(Math.random()*randColor.length);
 console.log(randColor[ResultColor])
 
 let probability_total = document.querySelector('.probability-total');
-let click_count = 0;
+let click_count = 1;
 let gatya_number = 1;
 let flag = 0;
 
@@ -157,22 +156,11 @@ function spin() {
         ctx.fillStyle = "#fff";
         ctx.fill();
         ctx.stroke();
-
-        //ガチャ中身
-        //InsideCapsule();
-
         // 下部のカプセルの出口を描画
         createRoundRect(ctx, 280, 350, 100, 100, 20);
         ctx.fillStyle = "#333";
         ctx.fill();
         ctx.stroke();
-
-        if(click_count == 2){
-            window.setTimeout(ResulltCapsule,500)
-            //ResulltCapsule();
-            setPatterns()
-            
-        }
 
     }, 500);
     ctx.restore();
@@ -195,13 +183,16 @@ canvas.addEventListener('click', (e) => {
 
     if (hit) {
         if(total_probability() == 100){
-            // 二回クリックしたら画面遷移
-            if (click_count < 2) {
-                for (let i = 0; i < 50; i++) {
-                    spin();
-                }
+            for (let i = 0; i < 50; i++) {
+                spin()
             }
-            click_count++;// クリックしたカウント
+            if(click_count == 2){
+                window.setTimeout(ResulltCapsule,500)
+                ResultColor = Math.floor(Math.random()*randColor.length);
+                setPatterns()
+                click_count = 0
+            }
+            click_count++
         }else{
             add_gatya()
         }
@@ -210,48 +201,45 @@ canvas.addEventListener('click', (e) => {
 });
 
 function setPatterns(){
-    if (flag == 0) {
-        const gatya_name = Array.from(document.querySelectorAll('.gatya-name'));
-        const probability = Array.from(document.querySelectorAll(".probability"));
-        var patterns = []
-        gatya_name.forEach((gn, index) => {
-            patterns.push({ index: index, name: gn.innerHTML, value: probability[index].value / 100 })
-        });
-        console.log(patterns)
-        console.log(patterns.length)
-        function drawGacha() {
-            //0~1のランダムの数値
-            const random = Math.random()
-            let num = 0;
-            for (let i = 0; i < patterns.length; i++) {
-                num += patterns[i].value;
-                if (random < num) {
-                    return patterns[i].name;
-                }
+    const gatya_name = Array.from(document.querySelectorAll('.gatya-name'));
+    const probability = Array.from(document.querySelectorAll(".probability"));
+    let patterns = []
+    gatya_name.forEach((gn, index) => {
+        patterns.push({ index: index, name: gn.innerHTML, value: probability[index].value / 100 })
+    });
+    console.log(patterns)
+    console.log(patterns.length)
+    function drawGacha() {
+        //0~1のランダムの数値
+        const random = Math.random()
+        let num = 0;
+        for (let i = 0; i < patterns.length; i++) {
+            num += patterns[i].value;
+            if (random < num) {
+                return patterns[i].name;
             }
         }
-        function renzoku() {
-            const results = [];
-            //ここのiを変えると何連か決めれる
-            for (let i = 0; i < 10; i++) {
-                results.push(drawGacha());
-            }
-            return results;
+    }
+    function renzoku() {
+        const results = [];
+        //ここのiを変えると何連か決めれる
+        for (let i = 0; i < 10; i++) {
+            results.push(drawGacha());
         }
-        const gachaResults = renzoku();
-        console.log(gachaResults);
-        
+        return results;
+    }
+    const gachaResults = renzoku();
+    console.log(gachaResults);
+    
     const text = document.querySelector(".text")
     for (let i = 0; i < gachaResults.length; i++) {
         const li = document.createElement("li");
         li.innerHTML = gachaResults[i];
         li.style.fontSize = '30px';
-        // li.style.margin = "10px"
         text.appendChild(li);
     }
-    flag = 1
-    }
     button.disabled = false //ボタン有効化
+
 }
 
 function show_probability(element) {
