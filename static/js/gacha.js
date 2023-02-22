@@ -17,7 +17,7 @@ let click_count = 0;
 let gatya_number = 1;
 let flag = 0;
 
-
+var patterns = []
 
 gatya_form.addEventListener('submit', (element) => {
     element.stopPropagation();
@@ -166,11 +166,11 @@ function spin() {
         ctx.fill();
         ctx.stroke();
 
-        if(click_count == 2){
+        if(click_count == 2 ){
             window.setTimeout(ResulltCapsule,500)
             //ResulltCapsule();
             //連続で回して中身を変えられるのを防ぐ
-            show_gatya_result()
+            show_gatya_result();
         }
 
     }, 500);
@@ -194,17 +194,16 @@ canvas.addEventListener('click', (e) => {
 
     if (hit) {
         // 二回クリックしたら画面遷移
-        if (click_count < 2) {
+        if (click_count < 2)  {
             for (let i = 0; i < 50; i++) {
                 spin();
             }
-        } else {
-
         }
-        click_count++;// クリックしたカウント
+    }else{
+        //alert('カプセルを追加してください。')
     }
-
-});
+        click_count++;// クリックしたカウント
+    });
 
 function show_gatya_result(){
     if (flag == 0) {
@@ -212,7 +211,7 @@ function show_gatya_result(){
         button.disabled = false //ボタン有効化
         const gatya_name = Array.from(document.querySelectorAll('.gatya-name'));
         const probability = Array.from(document.querySelectorAll(".probability"));
-        var patterns = []
+        
         gatya_name.forEach((gn, index) => {
             patterns.push({ index: index, name: gn.innerHTML, value: probability[index].value / 100 })
         });
@@ -349,12 +348,4 @@ function ResulltCapsule() {
 //      ctx.fill();
 //      ctx.stroke();
 // }
-// function gatyaInside(){
-//     if(gatya_number){
-//         for(i = 0; i < gatya_number.length ; i++){
-//             InsideCapsule(gatya_number.length);
-//         }
-//     }
-// }
-
 
