@@ -27,10 +27,6 @@ class User(UserMixin,db.Model):
 def index():
     return render_template("index.html")
 
-@app.route('/result')
-def result():
-    return render_template("result.html")
-
 #Userログイン
 @app.route('/login',methods = ['GET','POST'])
 def login():
@@ -44,7 +40,9 @@ def login():
         if user:
             if check_password_hash(user.password,password):
                 login_user(user)
-            return render_template('index.html', username = username)
+                return render_template('index.html', username = username)
+            else:
+                return render_template("login.html", error = "ログイン出来ませんでした")    
         else:
             return render_template("login.html", error = "ログイン出来ませんでした")
     else:

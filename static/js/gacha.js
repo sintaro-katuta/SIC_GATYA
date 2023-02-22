@@ -7,6 +7,7 @@ const probability = Array.from(document.querySelectorAll(".probability"));
 let probability_total = document.querySelector('.probability-total');
 let click_count = 0;
 let gatya_number = 1;
+let flag = 0;
 
 
 gatya_form.addEventListener('submit', (element) => {
@@ -176,7 +177,49 @@ canvas.addEventListener('click', (e) => {
                 spin();
             }
         } else {
-            //alert("!!!!");
+            //連続で回して中身を変えられるのを防ぐ
+            if (flag == 0) {
+                const button = document.querySelector('.btn-primary')
+                button.disabled = false //ボタン有効化
+                const gatya_name = Array.from(document.querySelectorAll('.gatya-name'));
+                const probability = Array.from(document.querySelectorAll(".probability"));
+                var patterns = []
+                gatya_name.forEach((gn, index) => {
+                    patterns.push({ index: index, name: gn.innerHTML, value: probability[index].value / 100 })
+                });
+                console.log(patterns)
+                function drawGacha() {
+                    //0~1のランダムの数値
+                    const random = Math.random()
+                    let num = 0;
+                    for (let i = 0; i < patterns.length; i++) {
+                        num += patterns[i].value;
+                        if (random < num) {
+                            return patterns[i].name;
+                        }
+                    }
+                }
+                function renzoku() {
+                    const results = [];
+                    //ここのiを変えると何連か決めれる
+                    for (let i = 0; i < 10; i++) {
+                        results.push(drawGacha());
+                    }
+                    return results;
+                }
+                const gachaResults = renzoku();
+                console.log(gachaResults);
+
+                const text = document.querySelector(".text")
+                for (let i = 0; i < gachaResults.length; i++) {
+                    const li = document.createElement("li");
+                    li.innerHTML = gachaResults[i];
+                    li.style.fontSize = '30px';
+                    // li.style.margin = "10px"
+                    text.appendChild(li);
+                }
+                flag = 1
+            }
         }
         click_count++;// クリックしたカウント
     }
@@ -206,35 +249,7 @@ function add_gatya() {
     } else if (total_probability() < 100) {
         alert("確率が100%以下です。");
     } else {
-        const gatya_name = Array.from(document.querySelectorAll('.gatya-name'));
-        const probability = Array.from(document.querySelectorAll(".probability"));
-        var patterns = []
-        gatya_name.forEach((gn, index) => {
-            patterns.push({ name: gn.innerHTML, value: probability[index].value / 100 })
-        });
-        console.log(patterns)
-        function drawGacha() {
-            //0~1のランダムの数値
-            const random = Math.random()
-            let num = 0;
-            for (let i = 0; i < patterns.length; i++) {
-                num += patterns[i].value;
-                if (random < num) {
-                    return patterns[i];
-                }
-            }
-        }
-        function renzoku() {
-            const results = [];
-            //ここのiを変えると何連か決めれる
-            for (let i = 0; i < 10; i++) {
-                results.push(drawGacha());
-            }
-            return results;
-        }
 
-        const gachaResults = renzoku();
-        console.log(gachaResults);
     }
 }
 
