@@ -2,7 +2,7 @@
 {% block content %}
 <div class="gatya row">
     <div class="col">
-        <canvas id="canvas" width="400" height="500" class="my-5 border border-dark bg-accent"></canvas>
+     <canvas id="canvas" width="400" height="500" class="my-5 border border-dark bg-accent"></canvas>
     </div>
     <div class="setting col">
         <div class="row">
@@ -26,30 +26,9 @@
                     </tbody>
                 </table>
             </div>
-            <!-- Button trigger modal -->
-            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop"
-                disabled>
-                結果を見る
-            </button>
-            <!-- Modal -->
-            <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false"
-                tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="staticBackdropLabel">ガチャ結果</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            <ul class="text" style="list-style: none; margin: 0; padding: 0;"></ul>
-                        </div>
-                        <div class="modal-footer">
-                        </div>
-                    </div>
-                </div>
-            </div>
         </form>
     </div>
 </div>
-<script src="/static/js/gacha.js"></script>
+<script src="static/js/gacha.js"></script>
+<script src="/static/js/gacha-animetion.js"></script>
 {% endblock %}
