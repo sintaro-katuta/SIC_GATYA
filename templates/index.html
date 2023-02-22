@@ -2,22 +2,25 @@
 {% block content %}
 <div class="gatya row">
     <div class="col">
-        <canvas id="canvas" width="400" height="500" class="my-5 border border-dark bg-accent"></canvas>
+        <canvas id="canvas" width="400" height="500" class="ms-5 border border-dark bg-accent"></canvas>
     </div>
-    <div class="setting col">
+    <div class="setting theme-font col">
         <div class="row">
+            <input type="button" id="change-type-1" class="btn btn-primary btn-rounded m-2 col" value="1連">
+            <input type="button" id="change-type-10" class="btn btn-success btn-rounded m-2 col" value="10連">
+            <input type="button" id="change-type-100" class="btn btn-info btn-rounded m-2 col" value="100連">
             <input type="submit" class="btn btn-danger btn-rounded m-2" value="すべて削除する" onclick="all_remove()">
         </div>
         <form method="post" name="gatya-form" id="gatya-form">
             <div class="input-group mb-3 pt-3">
-                <input type="text" name="gatya-content" id="gatya-content" class="form-control" required>
+                <input type="text" name="gatya-content" id="gatya-content" class="form-control" required autofocus autocomplete="off">
                 <input type="submit" id="submit-btn" class="btn btn-dark btn-rounded" value="カプセルを追加">
             </div>
             <div class="row">
                 <table class="table col">
                     <thead>
-                        <th>No</th>
-                        <th>名前</th>
+                        <th style="width: 40px">No</th>
+                        <th style="width: 65px">名前</th>
                         <th>確率<span class="probability-total"></span></th>
                     </thead>
                     <tbody id="gatya-table">
@@ -25,28 +28,24 @@
                     </tbody>
                 </table>
             </div>
-            <!-- Button trigger modal -->
-            <button type="button" class="btn btn-primary" id="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop" disabled onclick="show_gacha()">
-                結果を見る
-            </button>
-            <!-- Modal -->
-            <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false"
-                tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="staticBackdropLabel">ガチャ結果</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            <ul class="text" style="list-style: none; margin: 0; padding: 0;"></ul>
-                        </div>
-                        <div class="modal-footer">
-                        </div>
-                    </div>
-                </div>
-            </div>
         </form>
+    </div>
+</div>
+<div id="myModal" class="modal" tabindex="-1">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">ガチャ結果</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body row">
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">閉じる</button>
+                <button type="button" id="again-btn" class="btn btn-primary">もう一度回す</button>
+            </div>
+        </div>
     </div>
 </div>
 <script src="/static/js/gacha.js"></script>
