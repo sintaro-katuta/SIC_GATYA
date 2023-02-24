@@ -30,9 +30,9 @@ pip install requirements.txt
 
 サーバーの起動方法
 ```bash
-git clone https://github.com/sintaro-katuta/pajaman.git
-cd pajamanProject
-python manage.py runserver
+git clone https://github.com/sintaro-katuta/SIC_GATYA.git
+cd SIC_GATYA
+flask run
 ```
 # Author
 
