@@ -38,5 +38,5 @@ flask run
 
 * 勝田 紳太郎
 * 岩下 翔紀
-* 松浦 壮吾
+* 松浦 壮吾 @matsurasoua
 * 武田 啓睴
